@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant hover-hover (@media (hover: hover) and (pointer: fine));
+
+@layer base {
+  :root {
+    --color-gray-background: #fcfcfc;
+    --color-gray-100: oklch(0.991 0 0);
+    --color-gray-200: oklch(0.972 0 0);
+    --color-gray-300: oklch(0.955 0 0);
+    --color-gray-400: oklch(0.931 0 0);
+    --color-gray-500: oklch(0.907 0 0);
+    --color-gray-600: oklch(0.885 0 0);
+    --color-gray-700: oklch(0.851 0 0);
+    --color-gray-800: oklch(0.792 0 0);
+    --color-gray-900: oklch(0.643 0 0);
+    --color-gray-1000: oklch(0.61 0 0);
+    --color-gray-1100: oklch(0.503 0 0);
+    --color-gray-1200: oklch(0.244 0 0);
+    --color-preview-bg: oklch(1 0 0);
+    --shadow-custom:
+      0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 1px 2px -1px rgba(0, 0, 0, 0.06),
+      0px 2px 4px 0px rgba(0, 0, 0, 0.04);
+    color-scheme: light;
+  }
+
+  .dark {
+    --color-gray-background: #101010;
+    --color-gray-100: oklch(0.178 0 0);
+    --color-gray-200: oklch(0.213 0 0);
+    --color-gray-300: oklch(0.252 0 0);
+    --color-gray-400: oklch(0.285 0 0);
+    --color-gray-500: oklch(0.313 0 0);
+    --color-gray-600: oklch(0.348 0 0);
+    --color-gray-700: oklch(0.402 0 0);
+    --color-gray-800: oklch(0.489 0 0);
+    --color-gray-900: oklch(0.538 0 0);
+    --color-gray-1000: oklch(0.583 0 0);
+    --color-gray-1100: oklch(0.773 0 0);
+    --color-gray-1200: oklch(0.949 0 0);
+    --color-preview-bg: oklch(0.15 0 0);
+    --shadow-custom: 0 0 0 1px rgba(255, 255, 255, 0.08);
+    color-scheme: dark;
+  }
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+
+  * {
+    font-variant-ligatures: none;
+    outline-color: var(--color-gray-900);
+  }
+
+  *:focus-visible {
+    outline-width: 2px;
+    outline-style: solid;
+    outline-color: var(--color-gray-1100);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--color-gray-500);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms;
+      animation-duration: 0.01ms;
+      animation-iteration-count: 1;
+    }
+  }
+
+  br::selection {
+    background-color: transparent;
+  }
+
+  button,
+  a,
+  input,
+  [role="button"] {
+    touch-action: manipulation;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-gray-400);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@theme inline {
+  --color-gray-background: var(--color-gray-background);
+  --color-gray-100: var(--color-gray-100);
+  --color-gray-200: var(--color-gray-200);
+  --color-gray-300: var(--color-gray-300);
+  --color-gray-400: var(--color-gray-400);
+  --color-gray-500: var(--color-gray-500);
+  --color-gray-600: var(--color-gray-600);
+  --color-gray-700: var(--color-gray-700);
+  --color-gray-800: var(--color-gray-800);
+  --color-gray-900: var(--color-gray-900);
+  --color-gray-1000: var(--color-gray-1000);
+  --color-gray-1100: var(--color-gray-1100);
+  --color-gray-1200: var(--color-gray-1200);
+  --color-preview-bg: var(--color-preview-bg);
+  --shadow-custom: var(--shadow-custom);
+  --font-sans: var(--font-inter);
+  --font-openrunde: var(--font-openrunde);
+}
+
+@theme {
+  --animate-caret-blink: caret-blink 1s ease-in-out infinite;
+
+  @keyframes caret-blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+}
