@@ -2,8 +2,11 @@
 
 import { Dialog } from "@base-ui/react/dialog";
 import { DefaultStep } from "./default-step";
+import { useState } from "react";
+import { ModalStep } from "./modal-step";
 
 export function ConnectDialog() {
+    const [currentStep, setCurrentStep] = useState<ModalStep>("default")
     return (
         <Dialog.Root>
             <Dialog.Trigger
@@ -31,7 +34,22 @@ export function ConnectDialog() {
                             </button>
                         }
                     />
-                    <DefaultStep></DefaultStep>
+                    {currentStep === "default" ? (
+                        <DefaultStep onNext={(nextStep) => setCurrentStep(nextStep)} />
+                    ) : (
+                        <section className="flex h-[388px] w-full items-center justify-center rounded-3xl bg-preview-bg shadow-custom">
+                            <div className="flex flex-col items-center gap-4 font-openrunde">
+                                <p>{currentStep}</p>
+                                <button
+                                    type="button"
+                                    onClick={() => setCurrentStep("default")}
+                                    className="rounded-full bg-gray-200 px-4 py-2"
+                                >
+                                    Back
+                                </button>
+                            </div>
+                        </section>
+                    )}
                 </Dialog.Popup>
             </Dialog.Portal>
         </Dialog.Root>
