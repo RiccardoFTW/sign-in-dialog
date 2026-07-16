@@ -18,7 +18,7 @@ export function DefaultStep({ onNext }: DefaultStepProps) {
     const canContinue = email.trim().length > 0
     const canContinuePhone = phone.trim().length > 0
     return (
-        <section className="w-full max-w-[360px] h-[388px] relative overflow-hidden rounded-3xl bg-preview-bg shadow-custom">
+        <section className="w-full h-[388px]">
             <header className="p-6 font-openrunde font-semibold text-xl text-gray-1200">
                 <h2>Sign In</h2>
             </header>
@@ -51,7 +51,7 @@ export function DefaultStep({ onNext }: DefaultStepProps) {
                                     <button
                                         key={tab}
                                         type="button"
-                                        className={`flex flex-1 h-10 items-center justify-center rounded-xl font-openrunde font-semibold ${isActive ? "bg-gray-400 text-gray-1200" : "text-gray-900"}`}
+                                        className={`flex flex-1 h-10 items-center justify-center rounded-xl font-openrunde font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 ${isActive ? "bg-gray-400 text-gray-1200" : "text-gray-900"}`}
                                         aria-pressed={isActive}
                                         onClick={() => setActiveTab(tab)}
                                     >
@@ -64,20 +64,20 @@ export function DefaultStep({ onNext }: DefaultStepProps) {
                     {activeTab === "Email" &&
                         (<div className="flex h-12 w-full items-center gap-3 overflow-hidden rounded-2xl bg-gray-200 pl-4 pr-1 font-openrunde">
                             <input type="email" name="email" autoComplete="email" aria-label="Email address" placeholder="email@email.com" className="w-full min-w-0 font-medium placeholder:text-gray-900 text-gray-1200 bg-transparent" value={email} onChange={(event) => setEmail(event.target.value)} />
-                            <button type="button" aria-label="Continue" disabled={!canContinue} className={`flex items-center justify-center h-10 w-12 shrink-0 rounded-xl ${canContinue ? "bg-gray-400 text-gray-1200" : "bg-gray-100 text-gray-900"}`} onClick={() => onNext("email")} ><span aria-hidden="true">→</span></button>
+                            <button type="button" aria-label="Continue" disabled={!canContinue} className={`flex items-center justify-center h-10 w-12 shrink-0 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 ${canContinue ? "bg-gray-400 text-gray-1200" : "bg-gray-100 text-gray-900"}`} onClick={() => onNext("email")} ><span aria-hidden="true">→</span></button>
                         </div>
                         )}
                     {activeTab === "Phone" && (
                         <div className="flex h-12 w-full items-center gap-3 overflow-hidden rounded-2xl bg-gray-200 pl-4 pr-1 font-openrunde">
                             <input type="tel" name="phone" autoComplete="tel" aria-label="Phone number" placeholder="+39 000 000 0000" className="w-full min-w-0 font-medium placeholder:text-gray-900 text-gray-1200 bg-transparent" value={phone} onChange={(event) => setPhone(event.target.value)} />
-                            <button type="button" aria-label="Continue" disabled={!canContinuePhone} className={`flex items-center justify-center h-10 w-12 shrink-0 rounded-xl ${canContinuePhone ? "bg-gray-400 text-gray-1200" : "bg-gray-100 text-gray-900"}`} onClick={() => onNext("phone")}><span aria-hidden="true" >→</span></button>
+                            <button type="button" aria-label="Continue" disabled={!canContinuePhone} className={`flex items-center justify-center h-10 w-12 shrink-0 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 ${canContinuePhone ? "bg-gray-400 text-gray-1200" : "bg-gray-100 text-gray-900"}`} onClick={() => onNext("phone")}><span aria-hidden="true" >→</span></button>
                         </div>
                     )}
                     {activeTab === "Passkey" && (
                         <button
                             type="button"
                             aria-label="Continue with passkey"
-                            className="flex h-12 w-full items-center justify-center rounded-2xl bg-gray-200 font-openrunde font-medium text-gray-900"
+                            className="flex h-12 w-full items-center justify-center rounded-2xl bg-gray-200 font-openrunde font-medium text-gray-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500"
                             onClick={() => onNext("passkey")}
                         >
                             Continue with Passkey
@@ -93,7 +93,7 @@ export function DefaultStep({ onNext }: DefaultStepProps) {
                     <button
                         type="button"
                         aria-label="Connect Wallet"
-                        className="flex items-center justify-center gap-2 w-full h-12 rounded-full bg-sky-400 text-white font-openrunde font-semibold"
+                        className="flex items-center justify-center gap-2 w-full h-12 rounded-full bg-sky-400 text-white font-openrunde font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500"
                         onClick={() => onNext("connect-wallet")}>
                         <span aria-hidden="true">◈</span>
                         Connect Wallet

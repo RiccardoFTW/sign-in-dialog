@@ -4,11 +4,74 @@ import { Dialog } from "@base-ui/react/dialog";
 import { DefaultStep } from "./default-step";
 import { useState } from "react";
 import { ModalStep } from "./modal-step";
+import VerificationStep from "./verification-step";
+import { PasskeyStep } from "./passkey-step";
+import { ConnectWalletStep } from "./connect-wallet-step";
+
+type DialogContentProps = {
+    step: ModalStep
+    onNext: (nextStep: ModalStep) => void
+    onBack: () => void
+}
+
+function DialogContent({ step, onNext, onBack }: DialogContentProps) {
+    switch (step) {
+        case "default":
+            return <DefaultStep onNext={onNext} />
+
+        case "email":
+            return (
+                <VerificationStep
+                    variant="email"
+                    onBack={onBack}
+                />
+            )
+
+        case "phone":
+            return (
+                <VerificationStep
+                    variant="phone"
+                    onBack={onBack}
+                />
+            )
+
+        case "passkey":
+            return (
+                <PasskeyStep
+                    onBack={onBack}
+                />
+            )
+
+        case "connect-wallet":
+            return (
+                <ConnectWalletStep
+                    onBack={onBack}
+                />
+            )
+
+        default:
+            return null
+    }
+}
 
 export function ConnectDialog() {
     const [currentStep, setCurrentStep] = useState<ModalStep>("default")
     return (
-        <Dialog.Root>
+        <Dialog.Root onOpenChange={(open, eventDetails) => {
+            if (
+                !open &&
+                eventDetails.reason === "escape-key" &&
+                currentStep !== "default"
+            ) {
+                eventDetails.cancel()
+                setCurrentStep("default")
+                return
+            }
+            if (open) {
+                setCurrentStep("default")
+            }
+        }}
+        >
             <Dialog.Trigger
                 render={
                     <button
@@ -19,7 +82,7 @@ export function ConnectDialog() {
                 } />
             <Dialog.Portal>
                 <Dialog.Backdrop className="w-full h-full fixed inset-0 z-40 bg-black/15"></Dialog.Backdrop>
-                <Dialog.Popup className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-[360px] -translate-x-1/2 -translate-y-1/2">
+                <Dialog.Popup className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-[360px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-3xl bg-preview-bg shadow-custom">
                     <Dialog.Title className="sr-only">
                         Sign In
                     </Dialog.Title>
@@ -29,27 +92,16 @@ export function ConnectDialog() {
                             <button
                                 type="button"
                                 aria-label="Close Dialog"
-                                className="absolute top-6 right-6 z-10 flex size-8 items-center justify-center rounded-full bg-gray-200">
+                                className="absolute top-6 right-6 z-10 flex size-8 items-center justify-center rounded-full bg-gray-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500">
                                 ×
                             </button>
                         }
                     />
-                    {currentStep === "default" ? (
-                        <DefaultStep onNext={(nextStep) => setCurrentStep(nextStep)} />
-                    ) : (
-                        <section className="flex h-[388px] w-full items-center justify-center rounded-3xl bg-preview-bg shadow-custom">
-                            <div className="flex flex-col items-center gap-4 font-openrunde">
-                                <p>{currentStep}</p>
-                                <button
-                                    type="button"
-                                    onClick={() => setCurrentStep("default")}
-                                    className="rounded-full bg-gray-200 px-4 py-2"
-                                >
-                                    Back
-                                </button>
-                            </div>
-                        </section>
-                    )}
+                    <DialogContent
+                        step={currentStep}
+                        onNext={(nextStep) => setCurrentStep(nextStep)}
+                        onBack={() => setCurrentStep("default")}
+                    />
                 </Dialog.Popup>
             </Dialog.Portal>
         </Dialog.Root>
