@@ -72,7 +72,7 @@ export default function VerificationStep({
             <div className="flex gap-4 px-6 pb-6">
                 <button
                     aria-label={verifyLabel}
-                    className="flex h-12 w-full select-none items-center justify-center gap-2 rounded-full bg-green-500 font-openrunde font-semibold text-white transition-[scale,background-color] duration-200 ease-out hover:bg-green-600 active:scale-[0.97]"
+                    className="flex h-12 w-full select-none items-center justify-center gap-2 rounded-full bg-green-500 font-openrunde font-semibold text-white transition-[scale,background-color] duration-200 ease-out hover:bg-green-600 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500"
                     onClick={onBack}
                     type="button"
                 >
